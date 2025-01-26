@@ -17,9 +17,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void initState() {
     super.initState();
 
-    // Call the isLogin method to handle navigation
-    splashServices.isLogin(context);
-
     // Initialize animation controller
     _controller = AnimationController(
       duration: const Duration(seconds: 3),
@@ -29,6 +26,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     // Start the animation
     _controller.forward();
+
+    // Call the checkAuthentication method after animation starts
+    splashServices.checkAuthentication(context);
   }
 
   @override
@@ -41,24 +41,32 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF9FE7F5), // Background color of splash screen
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0), // Add horizontal padding
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(height: 50), // Add spacing from top
+            const SizedBox(height: 50),
             Center(
               child: FadeTransition(
                 opacity: _animation,
-                child: const Column(
+                child: Column(
                   children: [
-                    Icon(Icons.security, size: 100, color: Color(0xFFF27F0C)),
-                    SizedBox(height: 20),
-                    Text('MoneyMinder',
-                      style: TextStyle(
-                        fontSize: 36, fontWeight: FontWeight.bold, color: Color(0xFF053F5C),
-                      ),
+                    const Icon(Icons.currency_rupee_rounded, size: 150, color: Color(0xFF053F5C)),
+                    const SizedBox(height: 5),
+                    TweenAnimationBuilder(
+                      tween: Tween<double>(begin: 0.0, end: 1.0), // Fade-in effect
+                      duration: const Duration(seconds: 1),
+                      builder: (context, double opacity, child) {
+                        return const Text(
+                          'MoneyMINDER',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                            color: Colors.black,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -70,13 +78,21 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                 children: [
                   CircularProgressIndicator(color: Color(0xFF053F5C)), // Show progress indicator
                   SizedBox(height: 20),
-                  Text('❤️ Made by',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF053F5C),
+                  Text(
+                    '❤️ Made by',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF053F5C),
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text('TEAM DHANRAKSHAK',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey,
+                  Text(
+                    'TEAM DHANRAKSHAK',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
                     ),
                   ),
                 ],

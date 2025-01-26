@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+  const OnboardingScreen({super.key}); // Ensure the constructor is marked as 'const'
 
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
@@ -14,7 +14,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF9FE7F5),
       body: Stack(
         children: [
           PageView(
@@ -26,12 +25,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             },
             children: [
               const OnboardingPage(
-                image: Icons.currency_rupee_rounded,
+                image: Icons.tune,
                 title: "Gain total control of your money",
                 description: "Become your own money manager and make every cent count.",
               ),
               const OnboardingPage(
-                image: Icons.analytics,
+                image: Icons.account_balance_wallet,
                 title: "Know where your money goes",
                 description: "Track your transactions easily with categories and financial reports.",
               ),
@@ -67,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       minimumSize: const Size(double.infinity, 48),
                     ),
-                    child: const Text("Sign Up", style: TextStyle(color: Colors.white)),
+                    child: const Text("Sign Up", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white)),
                   ),
                   const SizedBox(height: 10),
                   OutlinedButton(
@@ -81,7 +80,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       minimumSize: const Size(double.infinity, 48),
                     ),
-                    child: const Text("Login", style: TextStyle(color: Color(0xFF053F5C))),
+                    child: const Text("Login", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF053F5C))),
                   ),
                 ],
               ),
@@ -144,13 +143,13 @@ class OnboardingPage extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
             description,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16, color: Colors.black54),
+            style: const TextStyle(fontSize: 18, color: Colors.black54),
           ),
         ],
       ),

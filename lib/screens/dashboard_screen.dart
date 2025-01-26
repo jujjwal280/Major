@@ -23,13 +23,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   bool isLogout = false;
   bool isDarkMode = false;
   final GlobalKey<FlipCardState> _flipCardKey = GlobalKey<FlipCardState>();
-  final List<Color> _bgColors = [
-    Color(0xFF1E5C78),
-    Color(0xFF1E5C78),
-    Color(0xFF1E5C78),
-  ];
 
   @override
+
   void initState() {
     super.initState();
     _fetchExpenses();
@@ -116,6 +112,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
+
+
+
   void _transactions() async {
     setState(() {
       isTransaction = true;
@@ -199,9 +198,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(//
+                  builder: (context) => AlertDialog(
                     title: const Text(
-                      'Are you sure you want to log out ?',
+                      'Are you sure you want to log out?',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -209,23 +208,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                     actions: [
+                      // Cancel button
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: const Text('Cancel',
+                        child: const Text(
+                          'Cancel',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
                           ),
                         ),
                       ),
-                      TextButton(
-                        onPressed: _logout,
-                        child: const Text('Logout',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF053F5C),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                          backgroundColor: const Color(0xFF053F5C),
+                        ),
+                        onPressed: _logout,
+                        child: isLogout
+                            ? const Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: CircularProgressIndicator(color: Color(0xFF053F5C)),
+                        )
+                            : const Text(
+                          '  LogOut   ',
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
                     ],
@@ -306,7 +316,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     if (isTransaction) // Check if loading is true
                       const Padding(
                         padding: EdgeInsets.only(left: 10),
-                        child: CircularProgressIndicator(color: Colors.white),
+                        child: CircularProgressIndicator(color: Color(0xFF053F5C)),
                       ),
                   ],
                 ),
@@ -324,7 +334,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     if (isProfile) // Check if loading is true
                       const Padding(
                         padding: EdgeInsets.only(left: 10),
-                        child: CircularProgressIndicator(color: Colors.white),
+                        child: CircularProgressIndicator(color: Color(0xFF053F5C0)),
                       ),
                   ],
                 ),

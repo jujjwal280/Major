@@ -130,7 +130,6 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF9FE7F5),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
@@ -222,7 +221,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(height: 50,),
                     isLoading
                         ? const Center(
-                      child: CircularProgressIndicator(color: Colors.white),
+                      child: CircularProgressIndicator(color: Color(0xFF053F5C)),
                     )
                         : ElevatedButton(
                       onPressed: () {
@@ -233,19 +232,19 @@ class _SignupScreenState extends State<SignupScreen> {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         backgroundColor: Color(0xFF053F5C),
                       ),
                       child: const Text(
-                        ' Sign Up ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                        '   Sign Up   ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Already have an account? ', style: TextStyle(color: Colors.white)),
+                        const Text('Already have an account? ', style: TextStyle(color: Colors.black)),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()),
@@ -268,8 +267,7 @@ class _SignupScreenState extends State<SignupScreen> {
   InputDecoration _buildInputDecoration(String hintText, IconData icon) {
     return InputDecoration(
       hintText: hintText, hintStyle: const TextStyle(color: Color(0xFF053F5C),),
-      filled: true,
-      fillColor: Colors.white.withOpacity(0.6),
+      filled: true,fillColor: Color(0xFF9FE7F5).withOpacity(0.2),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
       ),

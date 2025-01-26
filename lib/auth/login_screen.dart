@@ -63,7 +63,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF9FE7F5),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: SingleChildScrollView(
@@ -110,8 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         hintText: 'Enter Your Email',
                         hintStyle: const TextStyle(color: Color(0xFF053F5C)),
-                        filled: true,
-                        fillColor: Colors.white.withOpacity(0.6),
+                        filled: true,fillColor: Color(0xFF9FE7F5).withOpacity(0.2),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2),
@@ -139,8 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         hintText: 'Enter Your Password',
                         hintStyle: const TextStyle(color: Color(0xFF053F5C)),
-                        filled: true,
-                        fillColor: Colors.white.withOpacity(0.6),
+                        filled: true,fillColor: Color(0xFF9FE7F5).withOpacity(0.2),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2),
@@ -177,19 +174,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Login button
                     isLoading
                         ? const Center(
-                      child: CircularProgressIndicator(color: Colors.white),
+                      child: CircularProgressIndicator(color: Color(0xFF053F5C)),
                     )
                         : ElevatedButton(
                       onPressed: login,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         backgroundColor: const Color(0xFF053F5C),
                       ),
                       child: const Text(
-                        ' Log In ',
+                        '   Log In   ',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ),
@@ -200,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         const Text(
                           'Create an account? ',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         ),
                         GestureDetector(
                           onTap: () {
