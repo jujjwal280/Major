@@ -3,6 +3,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -365,21 +366,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.grid_view_rounded,
-                color: _selectedIndex == 0 ? Color(0xFFF27F0C) : Colors.white,  // Change color based on selection
+                color: _selectedIndex == 0 ? const Color(0xFFF27F0C) : Colors.white,  // Change color based on selection
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.bar_chart_rounded,
-                color: _selectedIndex == 1 ? Color(0xFFF27F0C) : Colors.white,  // Change color based on selection
+                color: _selectedIndex == 1 ? const Color(0xFFF27F0C) : Colors.white,  // Change color based on selection
               ),
               label: 'Future Insights',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.notifications_none_outlined,
-                color: _selectedIndex == 2 ? Color(0xFFF27F0C) : Colors.white,  // Change color based on selection
+                color: _selectedIndex == 2 ? const Color(0xFFF27F0C) : Colors.white,  // Change color based on selection
               ),
               label: 'Notifications',
             ),
@@ -610,7 +611,7 @@ class HomeScreen extends StatelessWidget {
 class FutureInsightScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text(
         'Future Insights Screen',
         style: TextStyle(fontSize: 24),
@@ -620,13 +621,91 @@ class FutureInsightScreen extends StatelessWidget {
 }
 
 class NotificationScreen extends StatelessWidget {
+  final List<Map<String, String>> notifications = [
+    {
+      "message": "Updates are available! Update your app to access more functionality.",
+      "url": "https://leetcode.com/problems/maximum-number-of-fish-in-a-grid/description/?envType=daily-question&envId=2025-01-28", // Replace with your actual URL.
+    },
+    {
+      "message": "Check out us on our website!",
+      "url": "https://example.com/features", // Replace with your actual URL.
+    },
+  ];
+
+  void _launchURL(BuildContext context, String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Could not open the link. Please try again."),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Notifications Screen',
-        style: TextStyle(fontSize: 24),
-      ),
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: notifications.length,
+      itemBuilder: (context, index) {
+        final notification = notifications[index];
+        return Card(
+          elevation: 4,
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.notification_important_rounded,
+                      color: Color(0xFFF27F0C),
+                      size: 30,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        notification["message"] ?? "",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton.icon(
+                    onPressed: () => _launchURL(context, notification["url"] ?? ""),
+                    icon: const Icon(Icons.download_rounded, color: Colors.redAccent),
+                    label: const Text(
+                      ' Open  ',
+                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: const Color(0xFF053F5C),
+                        minimumSize: const Size(100, 40)
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
