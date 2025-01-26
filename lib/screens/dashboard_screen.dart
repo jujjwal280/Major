@@ -199,8 +199,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: const Color(0xFF9FE7F5),
+                  builder: (context) => AlertDialog(//
                     title: const Text(
                       'Are you sure you want to log out ?',
                       style: TextStyle(
