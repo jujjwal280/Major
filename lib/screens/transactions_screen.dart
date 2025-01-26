@@ -87,6 +87,8 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
@@ -97,7 +99,6 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         .collection('transactions');
 
     return Scaffold(
-      backgroundColor: const Color(0xFF9FE7F5),
       appBar: AppBar(
         title: const Text("Transactions",
         style: TextStyle(color: Colors.white)
@@ -139,14 +140,36 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
           }
 
           final dataDocs = snapshot.data!.docs;
-
           double totalExpenditure = 0.0;
+          final currentDate = DateTime.now();
+          final currentMonth = currentDate.month;
+          final currentYear = currentDate.year;
+
           for (var doc in dataDocs) {
             final data = doc.data() as Map<String, dynamic>;
-            if (data['amount'] != null) {
-              totalExpenditure += (data['amount'] as num).toDouble();
+            if (data['amount'] != null && data['date'] != null) {
+              final transactionDate = (data['date'] as Timestamp).toDate();
+              if (transactionDate.month == currentMonth && transactionDate.year == currentYear) {
+                totalExpenditure += (data['amount'] as num).toDouble();
+              }
             }
           }
+
+          Map<int, String> monthNames = {
+            1: 'January',
+            2: 'February',
+            3: 'March',
+            4: 'April',
+            5: 'May',
+            6: 'June',
+            7: 'July',
+            8: 'August',
+            9: 'September',
+            10: 'October',
+            11: 'November',
+            12: 'December',
+          };
+          String currentMonthName = monthNames[currentMonth] ?? 'Unknown';
 
           Map<String, Map<int, Map<String, List<Widget>>>> groupedTransactions = {};
           Map<String, Map<int, double>> monthlyExpenditure = {};
@@ -224,34 +247,35 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
             padding: const EdgeInsets.all(16.0),
             child: ListView(
               children: [
-                Card(
-                  elevation: 4,
-                  color: Colors.white.withOpacity(0.8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        const Text(
-                          "Overall Expenditure",
-                          style: TextStyle(
-                            fontSize: 21,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF053F5C),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "₹${totalExpenditure.toStringAsFixed(2)}",
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red[900],
-                          ),
-                        ),
-                      ],
+              Card(
+              elevation: 8,
+              color: Colors.white.withOpacity(0.8),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "${currentMonthName} Month Expenditure",
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF053F5C),
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 10),
+                    // Assuming your expenditure data contains a 'date' and 'amount'
+                    Text(
+                      "₹${totalExpenditure.toStringAsFixed(2)}",
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red[900],
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+            ),
                 for (var month in groupedTransactions.keys)
                   ExpansionTile(
                     title: Text(
@@ -288,7 +312,6 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
-            backgroundColor: const Color(0xFF9FE7F5),
             builder: (ctx) => Padding(
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -323,7 +346,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           decoration: InputDecoration(
                             labelText: 'Category', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                             filled: true,
-                            fillColor: Colors.white.withOpacity(0.6),
+                            fillColor: Color(0xFF429EBD).withOpacity(0.2),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                             ),
@@ -341,7 +364,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           decoration: InputDecoration(
                             labelText: 'Amount', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                             filled: true,
-                            fillColor: Colors.white.withOpacity(0.6),
+                            fillColor: Color(0xFF429EBD).withOpacity(0.2),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                             ),
@@ -368,7 +391,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           decoration: InputDecoration(
                             labelText: 'Description', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                             filled: true,
-                            fillColor: Colors.white.withOpacity(0.6),
+                            fillColor: Color(0xFF429EBD).withOpacity(0.2),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                             ),
@@ -399,18 +422,17 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        // Add Transaction Button
                         ElevatedButton(
                           onPressed: _addTransaction,
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             backgroundColor: const Color(0xFF053F5C),
                           ),
                           child: const Text(
-                            'Add Transaction',
+                            '   Add Transaction   ',
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         ),

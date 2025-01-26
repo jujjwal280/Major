@@ -163,7 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF9FE7F5),
+      backgroundColor: Colors.white,
       appBar: AppBar(title: const Text("Profile", style: TextStyle(color: Colors.white)),
         leading: IconButton(icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -187,8 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
+                  filled: true,fillColor: Color(0xFF429EBD).withOpacity(0.2),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
@@ -204,7 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: InputDecoration(
                   labelText: 'Email', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
+                  fillColor: Color(0xFF429EBD).withOpacity(0.2),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                   ),
@@ -219,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: InputDecoration(
                   labelText: 'Phone Number', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
+                  fillColor: Color(0xFF429EBD).withOpacity(0.2),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                   ),
@@ -236,7 +235,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: InputDecoration(
                   labelText: 'Date of Birth (DD/MM/YYYY)', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
+                  fillColor: Color(0xFF429EBD).withOpacity(0.2),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                   ),
@@ -262,7 +261,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: InputDecoration(
                   labelText: 'Gender',
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
+                  fillColor: Color(0xFF429EBD).withOpacity(0.2),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                   ),
@@ -277,7 +276,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: InputDecoration(
                   labelText: 'Age', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
+                  fillColor: Color(0xFF429EBD).withOpacity(0.2),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF429EBD), width: 2,),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _addressController,
+                decoration: InputDecoration(
+                  labelText: 'Address', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
+                  filled: true,
+                  fillColor: Color(0xFF429EBD).withOpacity(0.2),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                   ),
@@ -303,7 +317,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: InputDecoration(
                   labelText: 'Bank Name', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
+                  fillColor: Color(0xFF429EBD).withOpacity(0.2),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                   ),
@@ -318,7 +332,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: InputDecoration(
                   labelText: 'Account Number', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
+                  fillColor: Color(0xFF429EBD).withOpacity(0.2),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
                   ),
@@ -327,22 +341,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _addressController,
-                decoration: InputDecoration(
-                  labelText: 'Address', labelStyle: const TextStyle(color: Color(0xFF053F5C),),
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.6),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF1E5C78), width: 2,),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF429EBD), width: 2,),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 60),
               Center(
                 child: ElevatedButton(
                   onPressed: _updateUserProfile,
@@ -354,7 +353,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     backgroundColor: const Color(0xFF053F5C),
                   ),
                   child: const Text(
-                    'Save Profile',
+                    '   Save Profile   ',
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
